@@ -75,7 +75,23 @@ public class ClientController implements Initializable {
             alert.setTitle("Ошибка");
             alert.setHeaderText("Нет подключения к серверу!");
             alert.showAndWait();
+                   }else  {
 
+        try {
+            is = sock.getInputStream();
+            os = sock.getOutputStream();
+
+            String sendData = dataSend.getText();
+            os.write(sendData.getBytes());
+            byte[] bytes = new byte[1024];
+            is.read(bytes);
+            String result = new String(bytes, "UTF-8");
+            result = result.replace(" ","");
+            dataReceived.setText(result);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         }
     }
 
